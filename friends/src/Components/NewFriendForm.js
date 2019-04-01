@@ -13,7 +13,15 @@ export default class NewFriendForm extends React.Component {
 
     render() {
         return (
-            <h2>hello from inside NewFriendForm</h2>
+            <div>
+                <h2>New Friend Entry Form</h2>
+                <form>
+                    <input type='text'      name='FirstName'    placeholder='First Name'  ></input>
+                    <input type='text'      name='LastName'     placeholder='Last Name'   ></input>
+                    <input type='number'    name='LastName'     placeholder='Age'         ></input>
+                    <input type='text'      name='email'        placeholder='Email'       ></input>
+                </form>
+            </div>
         )
     }
 }
