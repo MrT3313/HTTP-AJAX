@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 import axios from 'axios'
 
+import Friend from './Friend'
+
 export default class FriendsList extends React.Component {
     constructor(props) {
         super(props);
@@ -26,7 +28,16 @@ export default class FriendsList extends React.Component {
     
     render() {
         return (
-            <h2>hello from inside FriendsList</h2>
+            // this.state.friends.map( friend => <Friend friend={friend} />    )
+
+            this.state.friends.map ( friend => {
+                return (
+                    <Friend 
+                        friend={friend}
+                    />
+                )
+                
+            })
         )
     }
 }
