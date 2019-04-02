@@ -25,6 +25,19 @@ export default class NewFriendForm extends React.Component {
     changeHandler_email = e => {
         this.setState( { input_email: e.target.value } )
     }
+    AddFriendToServer = e => {
+        axios.post('http://localhost:5000/friends', { 
+            name: this.state.input_firstName + ' ' + this.state.input_lastName,
+            age: this.state.input_age,
+            email: this.state.input_email
+        })
+        .then( response => {
+            alert('SUCCESSFUL Axios POST')
+        })
+        .catch( err => {
+            alert('complete and utter FAILURE w/ Axios POST')
+        })
+    }
 
     render() {
         return (
@@ -49,6 +62,10 @@ export default class NewFriendForm extends React.Component {
                     <input type='text'      
                         name='email'        placeholder='Email'  
                         onChange={this.changeHandler_email}     
+                    ></input>
+
+                    <input type='submit' value="Enter New Friend"
+                        onClick={this.AddFriendToServer}
                     ></input>
                 </form>
             </div>
