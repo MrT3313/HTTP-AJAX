@@ -7,16 +7,26 @@ import axios from 'axios'
     import Friend from './Friend'
 
 // CSS 
+    import styled from 'styled-components'
 
 // -- ** -- ** -- ** //
 // Start Code
 // -- ** -- ** -- ** //
 
+// Styled Component
+    const FriendList_Wrapper = styled.div`
+        display: flex
+        flex-wrap: wrap;
+        
+        margin-top: 20px;
+    `;
 export default class FriendsList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            friends: []
+            friends: [],
+            axios_successMessage: '',
+            axios_errorMessage: ''
         }
     }
     
@@ -33,14 +43,6 @@ export default class FriendsList extends React.Component {
             })
             .catch( error => console.log(error))
     }   
-    
-
-    // should this be the 'ID' or an 'UPDATEDFRIEND'
-    UpdateFriendOnServer = (e, id) => {
-        axios.put(`http://localhost:5000/friends/${id}`, id)
-        .this( res => alert('success'))
-        .catch( err => alert('failed'))
-    }
 
     AddFriendToServer = (e, NewFriend) => {
         e.preventDefault() 
@@ -56,6 +58,32 @@ export default class FriendsList extends React.Component {
         })
     }
 
+        // should this be the 'ID' or an 'UPDATEDFRIEND'
+    // UpdateFriendOnServer = (e, id) => {
+    //     axios.put(`http://localhost:5000/friends/${id}`, id)
+    //     .this( res => alert('success'))
+    //     .catch( err => alert('failed'))
+    // }
+
+    DeleteFriendFromServer = (e, id) => {
+        e.preventDefault()
+        axios.delete(`http://localhost:5000/friends/${id}`)
+            .then( res => {
+                console.log('success')
+                this.setState( {
+                    axios_successMessage: 'we did it fam',
+                    axios_errorMessage: ''
+                })
+            })
+            .catch( err => {
+                console.log('error')
+                this.setState( {
+                    axios_successMessage: '',
+                    axios_errorMessage: 'we did NOT do it fam.. :('
+                })
+            })
+    }
+
 
     render() {
         return (
@@ -63,17 +91,20 @@ export default class FriendsList extends React.Component {
             <>
                 <NewFriendForm 
                     AddFriendToServer={this.AddFriendToServer}
-                    UpdateFriendOnServer={this.UpdateFriendOnServer}
+                    // UpdateFriendOnServer={this.UpdateFriendOnServer}
                 />
 
-                {this.state.friends.map ( friend => {
-                    return (
-                        <Friend 
-                            friend={friend}
-                        />
-                    )
-                    
-                })}
+                <FriendList_Wrapper>
+                    {this.state.friends.map ( friend => {
+                        return (
+                            <Friend 
+                                friend={friend}
+                                DeleteFriendFromServer={this.DeleteFriendFromServer}
+                            />
+                        )
+                        
+                    })}
+                </FriendList_Wrapper>
             </>
         )
     }
