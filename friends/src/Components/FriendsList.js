@@ -25,8 +25,6 @@ export default class FriendsList extends React.Component {
         super(props);
         this.state = {
             friends: [],
-            axios_successMessage: '',
-            axios_errorMessage: ''
         }
     }
     
@@ -69,18 +67,13 @@ export default class FriendsList extends React.Component {
         e.preventDefault()
         axios.delete(`http://localhost:5000/friends/${id}`)
             .then( res => {
-                console.log('success')
+                console.log(res)
                 this.setState( {
-                    axios_successMessage: 'we did it fam',
-                    axios_errorMessage: ''
+                    friends: [...res.data]
                 })
             })
             .catch( err => {
                 console.log('error')
-                this.setState( {
-                    axios_successMessage: '',
-                    axios_errorMessage: 'we did NOT do it fam.. :('
-                })
             })
     }
 
