@@ -63,7 +63,7 @@ export default class NewFriendForm extends React.Component {
                         onChange={this.changeHandler_email}     
                     ></input>
 
-                    <button></button>
+                    <button>Submit New Friend</button>
                 </form>
             </div>
         )

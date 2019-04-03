@@ -2,9 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 import axios from 'axios'
 
-import NewFriendForm from './NewFriendForm'
-import Friend from './Friend'
+// Components
+    import NewFriendForm from './NewFriendForm'
+    import Friend from './Friend'
 
+// CSS 
+
+// -- ** -- ** -- ** //
+// Start Code
+// -- ** -- ** -- ** //
 
 export default class FriendsList extends React.Component {
     constructor(props) {
@@ -29,7 +35,13 @@ export default class FriendsList extends React.Component {
     }   
     
 
-    //  ADD AddFriendToServer --> pass as props to New Friend Form
+    // should this be the 'ID' or an 'UPDATEDFRIEND'
+    UpdateFriendOnServer = (e, id) => {
+        axios.put(`http://localhost:5000/friends/${id}`, id)
+        .this( res => alert('success'))
+        .catch( err => alert('failed'))
+    }
+
     AddFriendToServer = (e, NewFriend) => {
         e.preventDefault() 
         axios.post('http://localhost:5000/friends', NewFriend)
@@ -51,6 +63,7 @@ export default class FriendsList extends React.Component {
             <>
                 <NewFriendForm 
                     AddFriendToServer={this.AddFriendToServer}
+                    UpdateFriendOnServer={this.UpdateFriendOnServer}
                 />
 
                 {this.state.friends.map ( friend => {
