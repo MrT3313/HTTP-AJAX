@@ -67,6 +67,8 @@ export default class FriendsList extends React.Component {
             updateId: id
         })
 
+        // CALL UPDATE METHOD
+        this.UpdateFriendOnServer()
     }
     GetUpdateINFO = (updateInfo) => {
         // e.preventDefault()
@@ -76,12 +78,33 @@ export default class FriendsList extends React.Component {
         })
     }
 
-    UpdateFriendOnServer = (e, id, updatedInfo) => {
-        e.preventDefault()
+    UpdateFriendOnServer() {
+        // e.preventDefault()
+        
+        if (
+            Object.keys(this.state.updateInfo).length === 0
+        ) {
+            alert('nothing is entered')
+        } else {
+            alert('proceed with update')
+        }
+
+        console.log(this.state.updateId)
+        console.log(this.state.updateInfo)
+        console.log(this.state.updateInfo.input_age)
+
         axios
-            .put(`http://localhost:5000/friends/${id}`, updatedInfo)
+            .put(`http://localhost:5000/friends/${this.state.updateId}`, {
+                age: this.state.updateInfo.input_age,
+                name: this.state.updateInfo.input_firstName + this.state.updateInfo.input_lastName,
+                email: this.state.updateInfo.input_email,
+
+            })
             .then( res => {
                 console.log( res )
+                this.setState( {
+                    friends: [...res.data]
+                })
             })
             .catch( err => {
                 console.log( err )
@@ -111,7 +134,6 @@ export default class FriendsList extends React.Component {
             <>
                 <NewFriendForm 
                     AddFriendToServer={this.AddFriendToServer}
-                    UpdateFriendOnServer={this.UpdateFriendOnServer}
                     GetUpdateINFO={this.GetUpdateINFO}
                 />
 
