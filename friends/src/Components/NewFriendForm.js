@@ -41,7 +41,7 @@ export default class NewFriendForm extends React.Component {
     render() {
         return (
             <div>
-                <h2>New Friend Entry Form</h2>
+                <h2>Entry Form</h2>
                 <form onSubmit={this.newFriendSubmit}>
                     <input type='text'      
                         name='FirstName'    placeholder='First Name'  
