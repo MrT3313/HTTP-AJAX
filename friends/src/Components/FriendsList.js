@@ -60,15 +60,29 @@ export default class FriendsList extends React.Component {
         })
     }
     // PUT //
-    GetUpdateID = (e, id) => {
+    GetUpdateID = async (e, id) => {
         e.preventDefault()
-        
-        this.setState({
-            updateId: id
-        })
 
-        // CALL UPDATE METHOD
-        this.UpdateFriendOnServer()
+        // Is there information entered to update
+        if (
+            Object.keys(this.state.updateInfo).length === 0
+        ) {
+            alert(
+            'INCOMPLETE UPDATE:' + '\n' + '\n'    
+            + 'Steps to update a friend:' + '\n' 
+            + 'Step 1: Add information to entry form' + '\n'
+            + 'Step 2: Click the edit button (bottom right of friend card) for the friend you want to update'
+            )
+        } else {
+            alert('proceed with update')
+            // setState w/ passed ID
+            await this.setState({
+                updateId: id
+            })
+
+            // CALL UPDATE METHOD
+            this.UpdateFriendOnServer()
+        }
     }
     GetUpdateINFO = (updateInfo) => {
         // e.preventDefault()
@@ -79,25 +93,16 @@ export default class FriendsList extends React.Component {
     }
 
     UpdateFriendOnServer() {
-        // e.preventDefault()
-        
-        if (
-            Object.keys(this.state.updateInfo).length === 0
-        ) {
-            alert('nothing is entered')
-        } else {
-            alert('proceed with update')
-        }
+            const id = this.state.updateId
+                console.log(id)
+            const updateInfo = this.state.updateInfo
+                console.log(updateInfo)
 
-        console.log(this.state.updateId)
-        console.log(this.state.updateInfo)
-        console.log(this.state.updateInfo.input_age)
-
-        axios
-            .put(`http://localhost:5000/friends/${this.state.updateId}`, {
-                age: this.state.updateInfo.input_age,
-                name: this.state.updateInfo.input_firstName + this.state.updateInfo.input_lastName,
-                email: this.state.updateInfo.input_email,
+            axios
+            .put(`http://localhost:5000/friends/${id}`, {
+                age: updateInfo.input_age,
+                name: updateInfo.input_firstName + ' ' + updateInfo.input_lastName,
+                email: updateInfo.input_email,
 
             })
             .then( res => {
