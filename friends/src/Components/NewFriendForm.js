@@ -12,20 +12,25 @@ export default class NewFriendForm extends React.Component {
             input_email: ''
         }
     }
+    // CHANGE HANDLERS 
+        changeHandler_firstName = e => {
+            this.setState( { input_firstName: e.target.value } )
+            this.updateFriendInfo()
+        }
+        changeHandler_lastName = e => {
+            this.setState( { input_lastName: e.target.value } )
+            this.updateFriendInfo()
+        }
+        changeHandler_age = e => {
+            this.setState( { input_age: e.target.value } )
+            this.updateFriendInfo()
+        }
+        changeHandler_email = e => {
+            this.setState( { input_email: e.target.value } )
+            this.updateFriendInfo()
+        }
 
-    changeHandler_firstName = e => {
-        this.setState( { input_firstName: e.target.value } )
-    }
-    changeHandler_lastName = e => {
-        this.setState( { input_lastName: e.target.value } )
-    }
-    changeHandler_age = e => {
-        this.setState( { input_age: e.target.value } )
-    }
-    changeHandler_email = e => {
-        this.setState( { input_email: e.target.value } )
-    }
-
+    // POST //
     newFriendSubmit = e => {
         this.props.AddFriendToServer(
             e,
@@ -35,7 +40,13 @@ export default class NewFriendForm extends React.Component {
                 email: this.state.input_email
             }
         )
-        
+    }
+
+    // PUT //
+    updateFriendInfo() {
+        this.props.GetUpdateINFO(
+            this.state
+        )
     }
 
     render() {

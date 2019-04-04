@@ -61,7 +61,10 @@ export default class Friend extends React.Component {
     }
 
     updateFriend = e => {
-        alert('update icon clicked')
+        this.props.GetUpdateID(
+            e,
+            this.props.friend.id
+        )
     }
     render() {
         return (
@@ -76,12 +79,12 @@ export default class Friend extends React.Component {
                 <DeleteFriend
                     onClick={this.deleteFriend}
                 >
-                    <i class="fas fa-user-times"></i>
+                    <i className="fas fa-user-times"></i>
                 </DeleteFriend>
                 <UpdateFriend
                     onClick={this.updateFriend}
                 >
-                    <i class="far fa-edit"></i>    
+                    <i className="far fa-edit"></i>    
                 </UpdateFriend> 
             </FriendCard>
             </>

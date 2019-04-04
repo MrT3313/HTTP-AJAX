@@ -25,8 +25,11 @@ export default class FriendsList extends React.Component {
         super(props);
         this.state = {
             friends: [],
+
+            updateId: '',
+            updateInfo: {}
+            }
         }
-    }
     
     componentDidMount() {
         console.log('inside CDM')
@@ -42,6 +45,7 @@ export default class FriendsList extends React.Component {
             .catch( error => console.log(error))
     }   
 
+    // POST //
     AddFriendToServer = (e, NewFriend) => {
         e.preventDefault() 
         axios.post('http://localhost:5000/friends', NewFriend)
@@ -55,16 +59,39 @@ export default class FriendsList extends React.Component {
             alert('complete and utter FAILURE w/ Axios POST')
         })
     }
+    // PUT //
+    GetUpdateID = (e, id) => {
+        e.preventDefault()
+        
+        this.setState({
+            updateId: id
+        })
 
-        // should this be the 'ID' or an 'UPDATEDFRIEND'
-    // UpdateFriendOnServer = (e, id) => {
-    //     axios.put(`http://localhost:5000/friends/${id}`, id)
-    //     .this( res => alert('success'))
-    //     .catch( err => alert('failed'))
-    // }
+    }
+    GetUpdateINFO = (updateInfo) => {
+        // e.preventDefault()
+        
+        this.setState({
+            updateInfo: updateInfo
+        })
+    }
 
+    UpdateFriendOnServer = (e, id, updatedInfo) => {
+        e.preventDefault()
+        axios
+            .put(`http://localhost:5000/friends/${id}`, updatedInfo)
+            .then( res => {
+                console.log( res )
+            })
+            .catch( err => {
+                console.log( err )
+            })
+    }
+
+    // DELETE //
     DeleteFriendFromServer = (e, id) => {
         e.preventDefault()
+
         axios.delete(`http://localhost:5000/friends/${id}`)
             .then( res => {
                 console.log(res)
@@ -84,7 +111,8 @@ export default class FriendsList extends React.Component {
             <>
                 <NewFriendForm 
                     AddFriendToServer={this.AddFriendToServer}
-                    // UpdateFriendOnServer={this.UpdateFriendOnServer}
+                    UpdateFriendOnServer={this.UpdateFriendOnServer}
+                    GetUpdateINFO={this.GetUpdateINFO}
                 />
 
                 <FriendList_Wrapper>
@@ -93,6 +121,7 @@ export default class FriendsList extends React.Component {
                             <Friend 
                                 friend={friend}
                                 DeleteFriendFromServer={this.DeleteFriendFromServer}
+                                GetUpdateID={this.GetUpdateID}
                             />
                         )
                         
