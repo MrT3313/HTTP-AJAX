@@ -14,7 +14,7 @@
 export default class FriendsList extends Component {
     constructor(props) {
         super(props)
-
+            
 
     }
 

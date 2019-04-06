@@ -14,7 +14,6 @@ export default class FormTitle extends Component {
 constructor(props) {
     super(props)
 
-
 }
 
 render() {
