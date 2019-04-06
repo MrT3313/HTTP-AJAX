@@ -2,23 +2,37 @@
 import React, { Component } from 'react';
   
 // Material UI
-import { Paper, Typography } from '@material-ui/core';
+import { Paper } from '@material-ui/core';
+
+// COMPONENTS
+    import Friend from './Friend'
 
 
-
+// ** -- ** CODE START ** -- ** //
+// ** -- ** CODE START ** -- ** //
 
 export default class FriendsList extends Component {
     constructor(props) {
-        super()
+        super(props)
 
 
     }
 
     render() {
         return (
+            <>
             <Paper>
-                <h2>hello from inside list</h2>
+                {this.props.friends.map( friend => {
+                    return (
+                        <Friend 
+                            key={friend.id}
+                            friend={friend}
+                        />
+                    )
+                })}
+                
             </Paper>
+            </>
         )
     }
 
