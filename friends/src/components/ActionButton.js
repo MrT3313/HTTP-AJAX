@@ -9,11 +9,11 @@
 // ** -- ** CODE START ** -- ** //
 
 const Styled_actionButton = styled.div`
-display: flex;
+    display: flex;
 
-align-items: center;
+    align-items: center;
 
-width: 85px;
+    width: 85px;    
 `;
 
 export default class ActionButton extends Component {

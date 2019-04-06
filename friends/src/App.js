@@ -28,8 +28,6 @@ const TopDiv = styled.div`
   div {
     display: flex;
     justify-content: space-between;
-    
-
   }
 `;
 
@@ -66,9 +64,8 @@ class App extends Component {
               <Form />
               <ActionButton 
                   color={'primary'}
-                  aria_label="Add"
+                  // aria_label="-"
                   type={<AddIcon /> } 
-                  // aria-label={'Add'}
               />
             </div>
           </TopDiv>

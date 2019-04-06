@@ -1,8 +1,8 @@
 // IMPORT DEPENDENCIES
-import React, { Component } from 'react';
-  
+    import React, { Component } from 'react';
+
 // Material UI
-import { Paper } from '@material-ui/core';
+    import { Paper } from '@material-ui/core';
 
 // COMPONENTS
     import Friend from './Friend'
